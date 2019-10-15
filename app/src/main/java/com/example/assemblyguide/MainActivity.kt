@@ -10,14 +10,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var searchTerm = textEntry.text
 
+        textBox.text = "Synthetic property"
 
-        textBox.setText("testText")
-
-        testButton.setOnClickListener {
-            textBox.setText("buttonPressed")
+        testButton.setOnClickListener{
+            textBox.text = textEntry.text
 
         }
+
 
 
 
