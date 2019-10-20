@@ -12,7 +12,9 @@
     <TextView
         android:id="@+id/textBox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="@android:dimen/app_icon_size"/>
 <!--
     <SearchView
         android:id="@+id/searchBar"
