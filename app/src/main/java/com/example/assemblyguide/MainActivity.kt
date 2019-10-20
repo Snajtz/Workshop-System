@@ -17,16 +17,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var searchTerm = textEntry.text
 
-        Log.i("DB","Line before db creation")
-        var db: DatabaseHelper = DatabaseHelper(this)
-        Log.i("DB","Line efter db creation")
-        Log.i("DB", db.getName())
+        Log.i("MAIN","Line before db creation")
+
+        var db = DatabaseHelper(this)
+
+        Log.i("MAIN","Line efter db creation")
+
         textBox.text = "Synthetic property"
 
         testButton.setOnClickListener{
             textBox.text = textEntry.text
-
+            db.addBed(textEntry.text.toString(), "EN vanlig vit säng")
         }
+
 
     }
 
