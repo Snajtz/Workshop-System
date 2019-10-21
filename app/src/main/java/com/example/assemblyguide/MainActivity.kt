@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var searchTerm = textEntry.text
+        var searchTerm = artNrInput.text
 
         Log.i("MAIN","Line before db creation")
 
@@ -23,11 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.i("MAIN","Line efter db creation")
 
-        textBox.text = "Synthetic property"
-
-        testButton.setOnClickListener{
-            textBox.text = textEntry.text
-            db.addBed(textEntry.text.toString(), "EN vanlig vit säng")
+        submitButton.setOnClickListener{
+            db.addBed(artNrInput.text.toString(), "EN vanlig vit säng")
         }
 
 

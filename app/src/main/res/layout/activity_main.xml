@@ -1,47 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:background="#161629"
-    android:gravity="center"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:background="#9D9D9C"
+    android:weightSum="4"
+    android:paddingHorizontal="10dp">
 
-    <TextView
-        android:id="@+id/textBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="@android:dimen/app_icon_size"/>
-<!--
-    <SearchView
-        android:id="@+id/searchBar"
-        style="@android:style/Widget.Material.Light.SearchView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="Search here"
-        android:iconifiedByDefault="false"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
--->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#E9E5E5">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textEntry"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:layout_above="@+id/footer">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"
-            android:textColor="#FF0000"
-            android:textColorHint="#FF0000" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Search:"
+            android:textSize="18pt"/>
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="button"/>
-</LinearLayout>
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12pt"
+            android:background="@color/cardview_light_background"
+            android:layout_marginBottom="@dimen/editTextMargin"
+            android:hint="Article number"
+            android:paddingLeft="5dp"/>
+
+
+        <ListView
+            android:id="@+id/searchResultsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contextClickable="true" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="top"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add object:"
+            android:textSize="18pt"/>
+
+        <EditText
+            android:id="@+id/artNrInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/editTextMargin"
+            android:background="@color/cardview_light_background"
+            android:hint="Article number"
+            android:textSize="12pt"
+            android:paddingLeft="5dp"/>
+
+        <EditText
+            android:id="@+id/notesInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_light_background"
+            android:hint="Notes"
+            android:layout_marginBottom="@dimen/editTextMargin"
+            android:textSize="12pt"
+            android:paddingLeft="5dp"/>/>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="@string/submit"
+            android:background="@color/cardview_light_background"
+            android:textAllCaps="false" />
+    </LinearLayout>
+>
+</RelativeLayout>
