@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#9D9D9C"
+    android:background="@color/colorAccent"
     android:weightSum="4"
     android:paddingHorizontal="10dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +30,12 @@
             android:layout_marginBottom="@dimen/editTextMargin"
             android:hint="Article number"
             android:paddingLeft="5dp"/>
+
+
+        <TextView
+            android:id="@+id/testDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
         <ListView
