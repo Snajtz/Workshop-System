@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import android.widget.Toast
 
 
 val DATABASE_NAME: String ="bedden.db"
@@ -53,5 +54,56 @@ class DatabaseHelper(
         val success = db.insert(TABLE_NAME, null, values)
 
         Log.i("DB", "INSERTED ID $success")
+    }
+
+    fun search(searchTerm : String) : String {
+        var results = ""
+        val searchQuary = "SELECT * FROM bedTable WHERE artNr LIKE  '%$searchTerm%'"
+
+        val cursor = db.rawQuery(searchQuary, null)
+
+        cursor.use {
+            cursor.moveToFirst()
+            if (cursor.count > 0) {
+                do {
+                    results = results.plus(cursor.getInt(cursor.getColumnIndex("ID"))).toString()
+                    results = results.plus(cursor.getString(cursor.getColumnIndex("ARTNR")))
+                    results = results.plus((cursor.getString(cursor.getColumnIndex("NOTES"))))
+                    results = results.plus(cursor.getString(cursor.getColumnIndex("IMAGES")))
+                    results = results.plus("\n\n\n")
+                } while (cursor.moveToNext())
+            }
+            else{
+                results = "Nothing found"
+            }
+
+        }
+
+        return results
+    }
+
+    fun searchBeds(searchTerm: String) : List<Bed>{
+        var results : List<Bed> = listOf()
+        val searchQuery = "SELECT * FROM bedTable WHERE artNr LIKE  '%$searchTerm%'"
+        val cursor = db.rawQuery(searchQuery, null)
+
+        cursor.use{
+            it.moveToFirst()
+
+            if(it.count >0){
+                do{
+                    results = results.plus(
+                        Bed(cursor.getInt(cursor.getColumnIndex("ID")).toString(),
+                        cursor.getString(cursor.getColumnIndex("ARTNR")),
+                        cursor.getString(cursor.getColumnIndex("NOTES"))))
+
+                }while (it.moveToNext())
+            }
+            else{
+
+            }
+        }
+        return results
+
     }
 }
