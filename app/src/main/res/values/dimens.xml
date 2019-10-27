@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="editTextMargin">15dp</dimen>
+    <dimen name="header">18pt</dimen>
+    <dimen name="textSize">11pt</dimen>
 </resources>

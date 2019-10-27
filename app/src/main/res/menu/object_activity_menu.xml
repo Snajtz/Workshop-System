@@ -2,7 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:title="Delete"
+        android:id="@+id/deleteObjectBtn"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/baseline_delete_black_18dp"/>
+
     <item android:title="Item"
+        android:id="@+id/editObjectBtn"
         app:showAsAction="ifRoom"
         android:icon="@drawable/baseline_edit_black_24"/>
 

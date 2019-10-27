@@ -2,18 +2,28 @@ package com.example.assemblyguide
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 
-class BedListViewAdapter(private val activity: MainActivity, bedsList: List<Bed>) : BaseAdapter(){
+class BedListViewAdapter(private val activity: MainActivity, bedsList: List<Bed>?) : BaseAdapter(){
     private var bedsList = ArrayList<Bed>()
 
     init {
-        this.bedsList = bedsList as ArrayList
+        if (bedsList != null) {
+            this.bedsList = bedsList as ArrayList
+        }
+        else{
+            this.bedsList = ArrayList()
+        }
+
     }
+
 
     override fun getCount(): Int {
         return bedsList.size
@@ -36,9 +46,17 @@ class BedListViewAdapter(private val activity: MainActivity, bedsList: List<Bed>
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         vi = inflater.inflate(R.layout.listviewitem, null)
         val artNr : TextView = vi.findViewById(R.id.listItemArtNr)
-        val genre : TextView = vi.findViewById(R.id.listItemNotes)
+        val notes : TextView = vi.findViewById(R.id.listItemNotes)
         artNr.text = bedsList[i].artNr
-        genre.text = bedsList[i].notes
+        notes.text = bedsList[i].notes
+
+        vi.setOnClickListener{
+            val intent = Intent(activity, ObjectActivity::class.java)
+            intent.putExtra("bed", bedsList[i])
+            activity.startActivity(intent)
+            }
+
+
         return vi
     }
 }

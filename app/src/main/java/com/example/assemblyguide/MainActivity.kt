@@ -15,19 +15,40 @@ import java.io.FileInputStream
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var listView : ListView
+    lateinit var db : DatabaseHelper
+    var bedsList : List<Bed>? = null
+    lateinit var adapter : BedListViewAdapter
+
+
+    fun updateList(term : String) {
+        bedsList = db.searchBeds(term)
+        adapter = BedListViewAdapter(this@MainActivity, bedsList)
+        listView.adapter = adapter
+
+        when (bedsList) {
+            null -> noMatches.text = "No matches found"
+            else -> noMatches.text = null
+
+        }
+
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var searchTerm = artNrInput.text
 
-        Log.i("MAIN","Line before db creation")
+        listView = findViewById(R.id.searchResultsList)
+        db = DatabaseHelper(this)
 
-        var db = DatabaseHelper(this)
-
-        Log.i("MAIN","Line efter db creation")
+        updateList("")
 
         submitButton.setOnClickListener{
             db.addBed(artNrInput.text.toString(), notesInput.text.toString())
+            artNrInput.text = null
+            notesInput.text = null
+            updateList(searchInput.text.toString())
         }
 
 
@@ -41,23 +62,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val listView : ListView = findViewById(R.id.searchResultsList)
-                val bedsList = db.searchBeds(s.toString())
-                if(bedsList != null) {
-                    var adapter = BedListViewAdapter(this@MainActivity, bedsList)
-                    listView.adapter = adapter
+                updateList(s.toString())
 
-                }
-                else {
-                    val bed = Bed("123", "test")
-                    testDisplay.text = bed.artNr
-                }
             }
 
         })
-
     }
-
 
 }
 

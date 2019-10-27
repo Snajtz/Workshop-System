@@ -82,7 +82,7 @@ class DatabaseHelper(
         return results
     }
 
-    fun searchBeds(searchTerm: String) : List<Bed>{
+    fun searchBeds(searchTerm: String) : List<Bed>?{
         var results : List<Bed> = listOf()
         val searchQuery = "SELECT * FROM bedTable WHERE artNr LIKE  '%$searchTerm%'"
         val cursor = db.rawQuery(searchQuery, null)
@@ -93,7 +93,7 @@ class DatabaseHelper(
             if(it.count >0){
                 do{
                     results = results.plus(
-                        Bed(cursor.getInt(cursor.getColumnIndex("ID")).toString(),
+                        Bed(cursor.getInt(cursor.getColumnIndex("ID")),
                         cursor.getString(cursor.getColumnIndex("ARTNR")),
                         cursor.getString(cursor.getColumnIndex("NOTES"))))
 
@@ -103,7 +103,19 @@ class DatabaseHelper(
 
             }
         }
-        return results
+        return when (results.count() > 0){
+            true -> results
+            false -> null
+        }
 
+    }
+
+    fun update (updatedBed : ContentValues) : Int{
+        return db.update("bedTable", updatedBed,"ID = ${updatedBed.get("ID")}", null)
+
+    }
+
+    fun delete(id : Int?){
+        db.delete("bedTable", "ID = $id", null)
     }
 }
