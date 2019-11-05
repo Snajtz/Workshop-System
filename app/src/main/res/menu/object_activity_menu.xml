@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:title="Camera"
+        android:id="@+id/cameraObjectBtn"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/baseline_camera_alt_black_18dp"/>
+
     <item android:title="Delete"
         android:id="@+id/deleteObjectBtn"
         app:showAsAction="ifRoom"

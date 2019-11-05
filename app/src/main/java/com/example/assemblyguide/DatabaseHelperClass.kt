@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
+import java.io.IOException
 
 
 val DATABASE_NAME: String ="bedden.db"
@@ -95,7 +96,8 @@ class DatabaseHelper(
                     results = results.plus(
                         Bed(cursor.getInt(cursor.getColumnIndex("ID")),
                         cursor.getString(cursor.getColumnIndex("ARTNR")),
-                        cursor.getString(cursor.getColumnIndex("NOTES"))))
+                        cursor.getString(cursor.getColumnIndex("NOTES")),
+                        cursor.getString(cursor.getColumnIndex("IMAGES"))))
 
                 }while (it.moveToNext())
             }
@@ -106,6 +108,25 @@ class DatabaseHelper(
         return when (results.count() > 0){
             true -> results
             false -> null
+        }
+
+    }
+
+
+    fun getBedById(id: String):Bed?{
+        val cursor = db.rawQuery("SELECT * FROM bedTable WHERE id = $id", null)
+        cursor.use {
+            it.moveToFirst()
+            return if(it.count > 0){
+                    Bed(cursor.getInt(cursor.getColumnIndex("ID")),
+                    cursor.getString(cursor.getColumnIndex("ARTNR")),
+                    cursor.getString(cursor.getColumnIndex("NOTES")),
+                    cursor.getString(cursor.getColumnIndex("IMAGES")))
+            }
+            else{
+                return null
+            }
+
         }
 
     }
