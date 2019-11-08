@@ -79,11 +79,11 @@ class ObjectActivity : AppCompatActivity() {
     private fun savePic(){
         var updatedBed = ContentValues()
         updatedBed.put("ID", bed?.id)
-        if(bed?.images == "") {
+        if(bed?.stringifyImages() == "") {
             updatedBed.put("IMAGES", currentPhotoPath)
         }
         else{
-            updatedBed.put("IMAGES", "${bed?.images}%$currentPhotoPath")
+            updatedBed.put("IMAGES", "${bed?.stringifyImages()}%$currentPhotoPath")
         }
         db?.update(updatedBed)
     }
@@ -103,6 +103,10 @@ class ObjectActivity : AppCompatActivity() {
         }
     }
 
+    fun loadImages(){
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.object_activity)
@@ -110,7 +114,7 @@ class ObjectActivity : AppCompatActivity() {
         bed = intent.getSerializableExtra("bed") as Bed
         editTextArtNr.setText(bed?.artNr)
         editTextNotes.setText(bed?.notes)
-        editTextImages.setText(bed?.images)
+        loadImages()
         this.db = DatabaseHelper(this)
     }
 
@@ -119,7 +123,7 @@ class ObjectActivity : AppCompatActivity() {
         if(currentBed != null) {
             editTextArtNr.setText(currentBed.artNr)
             editTextNotes.setText(currentBed.notes)
-            editTextImages.setText(currentBed.images)
+            loadImages()
         }
         super.onResume()
     }
